@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Example</title>
+    <style>
+        /* Card container styling */
+        .card {
+            width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+            font-family: Arial, sans-serif;
+            margin: 16px;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        /* Card image styling */
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Card content styling */
+        .card-content {
+            padding: 16px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .card-description {
+            font-size: 1em;
+            color: #555;
+            margin: 12px 0;
+        }
+
+        /* Button styling */
+        .card-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .card-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <img src="https://via.placeholder.com/300x200" alt="Card Image">
+        <div class="card-content">
+            <h2 class="card-title">Card Title</h2>
+            <p class="card-description">This is a brief description of the card content. It provides an overview of what the card is about.</p>
+            <a href="#" class="card-button">Read More</a>
+        </div>
+    </div>
+
+</body>
+</html>
