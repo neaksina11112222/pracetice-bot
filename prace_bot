@@ -3,9 +3,21 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, fil
 import requests
 import json
 import os
+from datetime import datetime
+import pytz
+from datetime import datetime
+import pytz
+
+TOKEN = '7635474576:AAFc4wC9CUGX9_01RQ13rOwsQI243SZR580'
+# Date and time command handler
+async def datetime_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    print("Received /datetime command")  # This should print to the terminal when /datetime is used
+    cambodia_timezone = pytz.timezone("Asia/Phnom_Penh")
+    current_time = datetime.now(cambodia_timezone)
+    formatted_time = current_time.strftime("%A, %Y-%m-%d %H:%M:%S")
+    await update.message.reply_text(f"Current date and time in Cambodia: {formatted_time}")
 
 # Your bot token from BotFather
-TOKEN = '7635474576:AAFc4wC9CUGX9_01RQ13rOwsQI243SZR580'
 
 # File to store user preferences
 PREFS_FILE = 'user_prefs.json'
@@ -28,7 +40,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 # Help command handler
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("Commands:\n/start - Greet the user\n/help - Show help\n/weather - Get weather data\n/setresponse <response> - Set custom response")
+    await update.message.reply_text("Commands:\n/start - Greet the user\n/help - Show help\n/weather - Get weather data\n/setresponse <response> - Set custom response Show help\n/datetime - Get the current date and time in Cambodia")
 
 # Echo message handler
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -90,7 +102,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     user_text = update.message.text.lower()  # Get the user's text in lowercase for easier matching
 
     # Define specific responses based on common questions
-    if "how to reduce stress" in user_text:
+    if "How to reduce stress?" in user_text:
         response = (
             "To reduce stress, try the following techniques:\n"
             "- Practice deep breathing exercises.\n"
@@ -113,7 +125,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         response = "I'm just a bot, but I'm doing great! How can I help you?"
     elif "tell me a joke" in user_text:
         response = "Why don’t skeletons fight each other? They don’t have the guts!"
-    elif "how to improve sleep" in user_text:
+    elif "How to improve sleep?" in user_text:
         response = (
             "Here are some tips to improve your sleep:\n"
             "- Stick to a consistent sleep schedule.\n"
@@ -123,9 +135,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             "- Avoid caffeine late in the day.\n"
             "I hope these tips help!"
         )
-    elif "motivation" in user_text:
+    elif "Motivation" in user_text:
         response = "Stay positive! Remember, progress is progress, no matter how small. Keep going!"
-    elif "exercise" in user_text:
+    elif "Exercise" in user_text:
         response = (
             "Exercise is great for your health! Some ideas include:\n"
             "- Cardio (running, cycling, etc.)\n"
@@ -133,7 +145,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             "- Flexibility exercises (yoga or stretching)\n"
             "It's important to find something you enjoy!"
         )
-    elif "how to stay motivated" in user_text:
+    elif "How to stay motivated?" in user_text:
         response = (
             "Staying motivated can be challenging, but here are some tips:\n"
             "- Set clear, achievable goals and break them into smaller tasks.\n"
@@ -142,7 +154,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             "- Surround yourself with positive influences and people.\n"
             "- Don't be afraid to take breaks when needed."
         )
-    elif "how to build self-confidence" in user_text:
+    elif "How to build self-confidence?" in user_text:
         response = (
             "Building self-confidence takes time, but you can start with:\n"
             "- Focus on your strengths and remind yourself of past successes.\n"
@@ -187,6 +199,15 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             "- Take regular breaks to avoid burnout.\n"
             "- Keep a positive mindset and reward yourself after completing tasks."
         )
+    elif "How to control task?" in user_text:
+        response = (
+            "Managing tasks can be challenging, but here are some tips:\n"
+            "- Prioritize tasks based on importance and deadlines.\n"
+            "- Set small, achievable goals for each day.\n"
+            "- Eliminate distractions and focus on one task at a time.\n"
+            "- Take regular breaks to avoid burnout.\n"
+            "- Keep a positive mindset and reward yourself after completing tasks."
+        )
     else:
         # Default response if no specific keywords match
         response = "I didn't quite get that. Could you please clarify?"
@@ -195,13 +216,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     await update.message.reply_text(response)
 
 def main():
-    # Set up the bot with the token
     application = ApplicationBuilder().token(TOKEN).build()
 
     # Add handlers for commands and messages
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("weather", weather))
+    application.add_handler(CommandHandler("datetime", datetime_command))  # Add datetime command
     application.add_handler(CommandHandler("setresponse", set_response))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
