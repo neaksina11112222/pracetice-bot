@@ -81,7 +81,7 @@ async def weather(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def set_response(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     prefs = load_prefs()
     user_id = str(update.message.from_user.id)
-    custom_response = ' '.join(context.args)
+    custom_response = ' '.join(context.args) 
     
     if user_id not in prefs:
         prefs[user_id] = {}
@@ -112,7 +112,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             "Let me know if you want more tips!"
         )
     elif "hello" in user_text:
-        response = "Hello! How can I assist you today?"
+        response = "Heloutlo! How can I assist you today?"
     elif "price" in user_text:
         response = "Our product prices vary. Could you specify which product you're interested in?"
     elif "who are you" in user_text or "what are you" in user_text:
@@ -231,3 +231,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
